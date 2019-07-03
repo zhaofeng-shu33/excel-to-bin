@@ -1,0 +1,23 @@
+{
+  "name": "excel-to-bin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaofeng-shu33/excel-to-bin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhaofeng-shu33/excel-to-bin/issues"
+  },
+  "homepage": "https://github.com/zhaofeng-shu33/excel-to-bin#readme",
+  "dependencies": {
+    "exceljs": "^1.13.0"
+  }
+}
