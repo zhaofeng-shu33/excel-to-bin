@@ -7,16 +7,21 @@ const convert = require("./utility").convert;
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
-
+let DEVELOPMENT = true;
+if(process.env.production){
+  DEVELOPMENT = false;
+}
+console.log(DEVELOPMENT);
 function createWindow () {
   // 创建浏览器窗口。
-  win = new BrowserWindow({
+  let windows_config = {
     width: 800,
     height: 600,
-    webPreferences: {
-      nodeIntegration: true // we can use nodejs api in web page directly
-    }
-  })
+  }
+  win = new BrowserWindow(windows_config)
+  if(DEVELOPMENT == false){
+    win.setMenuBarVisibility(false);
+  }
 
   // 加载index.html文件
   win.loadFile('index.html')
