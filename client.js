@@ -1,13 +1,40 @@
-const { ipcRenderer } = require('electron');
-
+var ELECTRON = true;
+var ipcRenderer;
+try{
+	ipcRenderer = require('electron').ipcRenderer;
+}
+catch(err){
+	ELECTRON = false;
+}
+var dragged_file_object;
+function dropHandler(ev) {
+	console.log('File(s) dropped');
+	
+	// Prevent default behavior (Prevent file from being opened)
+	ev.preventDefault();
+	file = ev.dataTransfer.items[0].getAsFile();
+	dragged_file_object = file;
+	var file_notice;
+	if(file.path){
+		file_notice = file.path;
+	}
+	else{
+		file_notice = file.name;
+	}
+	ev.target.innerHTML = file_notice;
+}
+function dragOverHandler(ev){
+	ev.preventDefault();
+}
 function submit(){
-	var file = document.getElementById("file");
-	var first_file = file.files[0];
-	if(first_file == undefined){
+	if(ELECTRON == false){
+		return;
+	}
+	if(dragged_file_object == undefined){
 		alert("no excel file chosen");
 		return;
 	}
-	var file_full_path = file.files[0].path;
+	var file_full_path = dragged_file_object.path;
 	if(file_full_path.search('xlsx') < 0){
 		alert("not excel file");
 	}
@@ -30,10 +57,14 @@ function submit(){
     // process communication
 	// package the messages in json
 	var content = {file_full_path, sheet_num, column_num, len_num};
-	ipcRenderer.send('convert', content);
-}
-ipcRenderer.on('convert', (event, resolve_val) => {
-	if(resolve_val){
-		alert("convert successfully");
+	if(ELECTRON){
+		ipcRenderer.send('convert', content);
 	}
-})
+}
+if(ELECTRON){
+	ipcRenderer.on('convert', (event, resolve_val) => {
+		if(resolve_val){
+			alert("convert successfully");
+		}
+	})	
+}
