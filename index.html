@@ -1,9 +1,26 @@
 <html>
   <head>
     <meta charset="UTF-8">
+	<style>
+	.form {
+		display: flex;
+		flex-direction: column;
+	}
+	</style>
+	<script src="client.js"></script>
     <title>converter</title>
   </head>
   <body>
-      
+	<div class="form">
+      <input type="file" id="file"></input>
+      <input type="text" id="sheet" placeholder="Sheet"></input>
+      <input type="text" id="column" placeholder="Column"></input>
+      <select id="len">
+	  <option value="0">--Length--</option>	  
+	  <option value="1">1</option>
+	  <option value="2">2</option>	  
+	  </select>
+      <button onClick="submit()">Convert</button>
+	</div>
   </body>
 </html>
