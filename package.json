@@ -1,11 +1,12 @@
 {
   "name": "excel-to-bin",
   "version": "1.0.0",
-  "description": "",
+  "description": "convert excel numbers to bin file",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-	"start": "electron ."
+    "test": "jest",
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,11 @@
   },
   "homepage": "https://github.com/zhaofeng-shu33/excel-to-bin#readme",
   "dependencies": {
-    "deasync": "^0.1.15",
-    "electron": "^5.0.6",
     "exceljs": "^1.13.0"
+  },
+  "devDependencies": {
+    "electron": "^5.0.6",
+    "electron-builder": "^20.44.4",
+    "jest": "^24.8.0"
   }
 }
