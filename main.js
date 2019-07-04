@@ -3,7 +3,7 @@
 
 // Notice: this app cannot be bundled as a web application
 const { app, BrowserWindow, ipcMain } = require('electron')
-
+const convert = require("./utility").convert;
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
@@ -53,7 +53,16 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('convert', (event, file_full_path, num_of_sheet, column_num, array_len) => {
-  console.log(file_full_path);
-  event.returnValue = 'pong'
+ipcMain.on('convert', (event, content) => {
+    // unpack the content
+    file_full_path = content.file_full_path;
+    sheet_num = content.sheet_num;
+    column_num = content.column_num;
+    len_num = content.len_num;
+    console.log(file_full_path);
+    convert(file_full_path, sheet_num, column_num, len_num).then(
+      function(resolve_val){
+          console.log(resolve_val);
+          event.reply('convert', resolve_val);
+      });
 })
