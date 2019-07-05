@@ -1,11 +1,14 @@
 var ELECTRON = true;
+var convert, Excel;
 try{
 	convert = require('./utility').convert;
+	Excel = require('exceljs');
 }
 catch(err){
 	ELECTRON = false;
 }
 var dragged_file_object;
+let wb = new Excel.Workbook();
 function dropHandler(ev) {
 	console.log('File(s) dropped');
 	
@@ -16,14 +19,30 @@ function dropHandler(ev) {
 	var file_notice;
 	if(file.path){
 		file_notice = file.path;		
+		if(file_notice.search('xlsx') < 0){
+			alert("not excel file");
+			return;
+		}		
 	}
 	else{
 		file_notice = file.name;
 	}
 	ev.target.innerHTML = file_notice;
-	if(ELECTRON){
-		
+	if(ELECTRON){ // pop up sheet name
+		wb.xlsx.readFile(file_notice).then(
+			reset_sheet_selection
+		);				
 	}
+}
+function reset_sheet_selection(){
+	var sheet_select = document.getElementById('sheet');
+	sheet_select.innerHTML = '<option value="0">--Sheet--</option>'
+	wb.eachSheet(function(worksheet,sheetId){
+		var node = document.createElement("option");
+		node.innerHTML = worksheet.name;
+		node.setAttribute('value', sheetId);
+		sheet_select.appendChild(node);
+	})
 }
 function dragOverHandler(ev){
 	ev.preventDefault();
@@ -36,19 +55,15 @@ function submit(){
 		alert("no excel file chosen");
 		return;
 	}
-	var file_full_path = dragged_file_object.path;
-	if(file_full_path.search('xlsx') < 0){
-		alert("not excel file");
-	}
 	var sheet = document.getElementById("sheet");
-	var sheet_num = parseInt(sheet.value);
+	var sheet_num = parseInt(sheet.selectedOptions[0].value);
 	if(isNaN(sheet_num)){
 		sheet_num = 1;
 	}
 	var column = document.getElementById("column");
 	var column_num = parseInt(column.value);
 	if(isNaN(column_num)){
-		column_num = 1;
+		column_num = 6;
 	}
 	var len = document.getElementById("len");
 	var len_num = parseInt(len.selectedOptions[0].value);
@@ -57,9 +72,9 @@ function submit(){
 		return;
 	}
 	if(ELECTRON){
-		convert(file_full_path, sheet_num, column_num, len_num).then(
-			function(resolve_val){
-				alert("convert successfully");
-			});		
+		var rv = convert_sheet(wb, file_full_path, sheet_num, column_num, len_num);
+		if(rv){
+			alert("convert successfully");
+		}
 	}
 }
