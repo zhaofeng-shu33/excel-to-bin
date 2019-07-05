@@ -45,3 +45,4 @@ function convert(file_full_path, num_of_sheet, column_num, array_len){
 } 
 
 module.exports.convert = convert;
+module.exports.convert_sheet = convert_sheet;

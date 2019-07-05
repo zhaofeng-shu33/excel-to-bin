@@ -1,7 +1,7 @@
 var ELECTRON = true;
-var convert, Excel;
+var convert_sheet, Excel;
 try{
-	convert = require('./utility').convert;
+	convert_sheet = require('./utility').convert_sheet;
 	Excel = require('exceljs');
 }
 catch(err){
@@ -72,6 +72,7 @@ function submit(){
 		return;
 	}
 	if(ELECTRON){
+		var file_full_path = dragged_file_object.path;
 		var rv = convert_sheet(wb, file_full_path, sheet_num, column_num, len_num);
 		if(rv){
 			alert("convert successfully");
