@@ -17,6 +17,9 @@ function createWindow () {
   let windows_config = {
     width: 800,
     height: 600,
+    webPreferences:{
+      nodeIntegration: true
+    }
   }
   win = new BrowserWindow(windows_config)
   if(DEVELOPMENT == false){

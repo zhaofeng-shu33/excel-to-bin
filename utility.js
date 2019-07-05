@@ -18,7 +18,12 @@ function convert_sheet(wb, file_full_path, num_of_sheet, column_num, array_len){
         else{
             encounter_merged = false;
         }
-        ls.push(cell.value);
+        if(typeof(cell.value) == 'number'){
+            ls.push(cell.value);
+        }
+        else{
+            ls.push(cell.value.result);
+        }
     })
     ls = ls.slice(1, 1+array_len);
     let data = Buffer.from(ls);
