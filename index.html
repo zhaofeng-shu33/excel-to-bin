@@ -16,13 +16,15 @@
   </head>
   <body>
 	<div class="form">
-      <div id="file" ondrop="dropHandler(event)" ondragover="dragOverHandler(event);">Drag one excel file to this zone</div>
-      <input type="text" id="sheet" placeholder="Sheet"></input>
+	  <div id="file" ondrop="dropHandler(event)" ondragover="dragOverHandler(event);">Drag one excel file to this zone</div>
+      <select id="sheet">
+		<option value="0">--Sheet--</option>	  
+	  </select>	  
       <input type="text" id="column" placeholder="Column"></input>
       <select id="len">
 	  <option value="0">--Length--</option>	  
 	  <option value="256">256</option>
-	  <option value="512">256</option>	  
+	  <option value="512">512</option>	  
 	  <option value="1024">1024</option>
 	  <option value="2048">2048</option>	  
 	  </select>

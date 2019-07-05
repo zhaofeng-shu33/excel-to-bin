@@ -22,6 +22,9 @@ function dropHandler(ev) {
 		file_notice = file.name;
 	}
 	ev.target.innerHTML = file_notice;
+	if(ELECTRON){
+		
+	}
 }
 function dragOverHandler(ev){
 	ev.preventDefault();

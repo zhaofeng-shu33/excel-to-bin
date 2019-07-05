@@ -11,7 +11,21 @@ function convert(file_full_path, num_of_sheet, column_num, array_len){
         function(){
             let sheet = wb.getWorksheet(num_of_sheet);
             let col = sheet.getColumn(column_num);
-            let ls = col.values.slice(2, 2+array_len);
+            let encounter_merged = false;
+            let ls = []
+            col.eachCell(function(cell, rowNumber){
+                if(cell.isMerged && encounter_merged){
+                    return;
+                }
+                else if(cell.isMerged){
+                    encounter_merged = true;
+                }
+                else{
+                    encounter_merged = false;
+                }
+                ls.push(cell.value);
+            })
+            ls = ls.slice(1, 1+array_len);
             let data = Buffer.from(ls);
             // parse write file name
             let file_name = path.basename(file_full_path);
