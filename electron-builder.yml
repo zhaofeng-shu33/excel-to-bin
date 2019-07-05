@@ -1,3 +1,6 @@
 win:
   target:
    - target: portable
+mac:
+  target:
+   - target: dmg
