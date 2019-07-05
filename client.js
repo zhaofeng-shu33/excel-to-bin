@@ -1,7 +1,6 @@
 var ELECTRON = true;
-var ipcRenderer;
 try{
-	ipcRenderer = require('electron').ipcRenderer;
+	convert = require('./utility').convert;
 }
 catch(err){
 	ELECTRON = false;
@@ -16,7 +15,7 @@ function dropHandler(ev) {
 	dragged_file_object = file;
 	var file_notice;
 	if(file.path){
-		file_notice = file.path;
+		file_notice = file.path;		
 	}
 	else{
 		file_notice = file.name;
@@ -57,17 +56,10 @@ function submit(){
 		alert("no length specified");
 		return;
 	}
-    // process communication
-	// package the messages in json
-	var content = {file_full_path, sheet_num, column_num, len_num};
 	if(ELECTRON){
-		ipcRenderer.send('convert', content);
+		convert(file_full_path, sheet_num, column_num, len_num).then(
+			function(resolve_val){
+				alert("convert successfully");
+			});		
 	}
-}
-if(ELECTRON){
-	ipcRenderer.on('convert', (event, resolve_val) => {
-		if(resolve_val){
-			alert("convert successfully");
-		}
-	})	
 }

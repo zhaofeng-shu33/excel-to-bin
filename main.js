@@ -2,8 +2,7 @@
 // we construct a desktop app, accept an input excel file and converts specified value to a bin file.
 
 // Notice: this app cannot be bundled as a web application
-const { app, BrowserWindow, ipcMain } = require('electron')
-const convert = require("./utility").convert;
+const { app, BrowserWindow } = require('electron')
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
@@ -11,7 +10,6 @@ let DEVELOPMENT = true;
 if(process.env.production){
   DEVELOPMENT = false;
 }
-console.log(DEVELOPMENT);
 function createWindow () {
   // 创建浏览器窗口。
   let windows_config = {
@@ -59,18 +57,4 @@ app.on('activate', () => {
   if (win === null) {
     createWindow()
   }
-})
-
-ipcMain.on('convert', (event, content) => {
-    // unpack the content
-    file_full_path = content.file_full_path;
-    sheet_num = content.sheet_num;
-    column_num = content.column_num;
-    len_num = content.len_num;
-    console.log(file_full_path);
-    convert(file_full_path, sheet_num, column_num, len_num).then(
-      function(resolve_val){
-          console.log(resolve_val);
-          event.reply('convert', resolve_val);
-      });
 })
