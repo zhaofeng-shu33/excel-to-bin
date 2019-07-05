@@ -29,7 +29,8 @@ function convert(file_full_path, num_of_sheet, column_num, array_len){
             let data = Buffer.from(ls);
             // parse write file name
             let file_name = path.basename(file_full_path);
-            let write_file_name = file_name.split('.')[0] + '.bin';
+            let write_file_name = file_name.split('.')[0] + '-' + String(num_of_sheet) + 
+                '-' + String(column_num) + '-' + String(array_len) + '.bin';
             let write_file_full_path = path.join(path.dirname(file_full_path), write_file_name);
             fs.writeFileSync(write_file_full_path, data);
             return true;
