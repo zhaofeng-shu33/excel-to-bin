@@ -1,6 +1,6 @@
 win:
   target:
-   - target: portable
+   - target: zip
 mac:
   target:
-   - target: dmg
+   - target: zip
