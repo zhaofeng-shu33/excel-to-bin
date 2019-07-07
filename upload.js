@@ -13,6 +13,7 @@ const ossClient = oss({
     endpoint: 'oss-cn-shenzhen.aliyuncs.com',
     accessKeyId,
     accessKeySecret,
+    timeout: '600s'
 });
 var fromPath = '';
 fs.readdirSync('dist').map((name)=>{
