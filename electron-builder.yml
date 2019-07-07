@@ -1,8 +1,8 @@
 win:
   target:
-   - target: zip
-   - arch:
-    - x64
+    - target: zip
+    - arch:
+      - x64
 mac:
   target:
-   - target: zip
+    - target: zip
