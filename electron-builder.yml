@@ -1,6 +1,7 @@
 win:
   target:
    - target: zip
+   - arch: x64
 mac:
   target:
    - target: zip
