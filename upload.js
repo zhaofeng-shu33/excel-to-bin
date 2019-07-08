@@ -22,7 +22,7 @@ fs.readdirSync('dist').map((name)=>{
     }
 })
 fromPath = path.join('dist', fromPath);
-const toPath = path.join('excel-to-bin', 'excel-to-bin-' + process.platform + '.zip');
+const toPath = 'excel-to-bin/excel-to-bin-' + process.platform + '.zip';
 
 console.log('start upload oss', fromPath, toPath);
 
