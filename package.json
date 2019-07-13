@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/zhaofeng-shu33/excel-to-bin#readme",
   "dependencies": {
+    "electron-log": "^3.0.6",
     "exceljs": "^1.13.0"
   },
   "devDependencies": {

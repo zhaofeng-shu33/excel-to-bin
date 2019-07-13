@@ -3,6 +3,7 @@
 
 // Notice: this app cannot be bundled as a web application
 const { app, BrowserWindow } = require('electron')
+const log = require('electron-log');
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
@@ -25,7 +26,8 @@ function createWindow () {
   }
 
   // 加载index.html文件
-  win.loadFile('index.html')
+  log.info('Program started');
+  win.loadFile('index.html');
 
 
   // 当 window 被关闭，这个事件会被触发。
